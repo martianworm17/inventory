@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.inventory.model.Product;
@@ -49,9 +51,9 @@ public class InventoryDaoImpl implements InventoryDao{
 	 * Returns all the products in the database
 	 */
 	@Override
-	public Map<Integer, Product> listAllProducts() 
+	public List<Product> listAllProducts() 
 	{
-		Map<Integer, Product> hashMap = new HashMap<Integer, Product>();
+		List<Product> products = new ArrayList<Product>();
 		
 		try
 		{			
@@ -64,11 +66,11 @@ public class InventoryDaoImpl implements InventoryDao{
 				
 				while(result.next())
 				{
-					Integer key = result.getInt("id");
+					int key = result.getInt("id");
 					String name = result.getString("name");
 					String description = result.getString("description");
 					
-					hashMap.put(key, new Product(name, description));
+					products.add(new Product(key,name, description));
 				}
 				
 			} 
@@ -82,7 +84,7 @@ public class InventoryDaoImpl implements InventoryDao{
 		{
 			e.printStackTrace();
 		}
-		return hashMap;
+		return products;
 		
 		
 	}

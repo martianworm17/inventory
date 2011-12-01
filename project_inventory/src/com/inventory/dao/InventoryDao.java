@@ -10,7 +10,7 @@ public interface InventoryDao {
 	void create(Product item);
 
 
-	Map<Integer, Product> listAllProducts();
+	List<Product> listAllProducts();
 
 	
 	int update(Product item);
